@@ -32,7 +32,7 @@ const WeatherTable = () => {
           toast(`Error: ${data.message}`);
         }
       })
-      .catch((error) => console.error("Error fetching weather data:", error));
+      .catch((error) => toast("Error fetching weather data:", error));
   }, [apiUrl]);
 
   return (
