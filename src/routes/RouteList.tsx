@@ -13,7 +13,7 @@ export const routes: RouteType[] = [
   {
     name: "Home",
     path: "/",
-    icon: <FaHome />,
+    icon: <FaHome size={20} />,
     component: <HomePage />,
   },
 ];
