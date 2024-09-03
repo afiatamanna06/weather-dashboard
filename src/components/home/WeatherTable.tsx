@@ -2,20 +2,12 @@ import { useContext, useEffect, useState } from "react";
 import { IoIosPartlySunny, IoIosSunny, IoMdRainy } from "react-icons/io";
 import { WeatherContext } from "../../utils/WeatherContext";
 import { toast } from "react-toastify";
-
-interface WeatherData {
-  name: string;
-  temperature: number;
-  condition: string;
-  humidity: number;
-  wspeed: number;
-}
+import { WeatherData } from "./WeatherDataType";
+import { apiKey } from "../../utils/apiKey";
 
 const WeatherTable = () => {
   const city = useContext(WeatherContext);
   const [weatherData, setWeatherData] = useState<WeatherData[]>([]);
-
-  const apiKey = "d588948b013155b2b1d7e46ec17e4840";
 
   const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
   useEffect(() => {
@@ -34,7 +26,6 @@ const WeatherTable = () => {
           if (!weatherData.some((item) => item.name === receivedData.name)) {
             setWeatherData((prevData) => [...prevData, receivedData]);
           }
-          console.log(weatherData);
         } else {
           toast(`Error: ${data.message}`);
         }

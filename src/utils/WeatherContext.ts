@@ -1,3 +1,3 @@
 import { createContext } from "react";
 
-export const WeatherContext = createContext("dhaka")
+export const WeatherContext = createContext("dhaka");

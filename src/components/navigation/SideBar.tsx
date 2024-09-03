@@ -9,7 +9,7 @@ const SideBar = ({ children }: { children: React.ReactNode }) => {
   const [weather, setWeather] = useState("");
   const [inputValue, setInputValue] = useState("");
 
-  const handleKeyDown = (e: { key: string; }) => {
+  const handleKeyDown = (e: { key: string }) => {
     if (e.key === "Enter") {
       setWeather(inputValue);
     }
