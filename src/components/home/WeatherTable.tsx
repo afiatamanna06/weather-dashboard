@@ -1,5 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { IoIosPartlySunny, IoIosSunny, IoMdRainy } from "react-icons/io";
+import { IoRainy } from "react-icons/io5";
+import { BsCloudsFill } from "react-icons/bs";
 import { WeatherContext } from "../../utils/WeatherContext";
 import { toast } from "react-toastify";
 import { WeatherData } from "./WeatherDataType";
@@ -50,7 +52,7 @@ const WeatherTable = () => {
                   scope="col"
                   className="py-3.5 pl-4 pr-3 text-left text-lg font-medium text-gray-500 sm:pl-0"
                 >
-                  Temperature
+                  Temperature(°F)
                 </th>
                 <th
                   scope="col"
@@ -62,13 +64,13 @@ const WeatherTable = () => {
                   scope="col"
                   className="py-3.5 pl-4 pr-3 text-left text-lg font-medium text-gray-500 sm:pl-0"
                 >
-                  Humidity
+                  Humidity(%)
                 </th>
                 <th
                   scope="col"
                   className="py-3.5 pl-4 pr-3 text-left text-lg font-medium text-gray-500 sm:pl-0"
                 >
-                  Wind Speed
+                  Wind Speed(m/s)
                 </th>
               </tr>
             </thead>
@@ -85,21 +87,25 @@ const WeatherTable = () => {
                     {item.condition === "clear sky" && (
                       <IoIosSunny size={30} color="yellow" />
                     )}
-                    {(item.condition === "overcast clouds" ||
-                      item.condition === "haze" ||
-                      item.condition === "broken clouds") && (
+                    {item.condition === "haze" && (
                       <IoIosPartlySunny size={30} color="gray" />
                     )}
-                    {(item.condition === "heavy intensity rain" ||
-                      item.condition === "light rain") && (
+                    {(item.condition === "overcast clouds" ||
+                      item.condition === "broken clouds") && (
+                      <BsCloudsFill size={30} color="gray" />
+                    )}
+                    {item.condition === "light rain" && (
                       <IoMdRainy size={30} color="skyblue" />
+                    )}
+                    {item.condition === "heavy intensity rain" && (
+                      <IoRainy size={30} color="skyblue" />
                     )}
                   </td>
                   <td className="whitespace-nowrap px-3 py-4 text-gray-500">
-                    {item.humidity}
+                    {item.humidity}%
                   </td>
                   <td className="whitespace-nowrap px-3 py-4 text-gray-500">
-                    {item.wspeed}
+                    {item.wspeed}m/s
                   </td>
                 </tr>
               ))}
