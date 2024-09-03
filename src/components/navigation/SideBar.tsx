@@ -1,6 +1,7 @@
 import React from "react";
 import { routes } from "../../routes/RouteList";
 import { Link, useLocation } from "react-router-dom";
+import { FiSearch } from "react-icons/fi";
 
 const SideBar = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation();
@@ -24,7 +25,18 @@ const SideBar = ({ children }: { children: React.ReactNode }) => {
       </div>
       <div className="min-h-screen overflow-y-auto w-[calc(100vw-4rem)] ml-[4rem] md:w-[calc(100vw-8rem)] md:ml-[8rem] text-base">
         <div className="fixed w-full bg-slate-100 p-3">
-           <input className="py-2 px-4 rounded-md outline-0" />
+          <div className="relative w-[9.5rem] md:w-[16rem]">
+            <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-2 md:pl-3">
+              <FiSearch size={16} />
+            </div>
+            <input
+              type="text"
+              name="text"
+              id="text"
+              className="w-[8.7rem] md:w-[16rem] py-2 rounded-md border-0 ring-0 outline-0 focus:ring-0 pl-8 md:pl-10"
+              placeholder="Search here"
+            />
+          </div>
         </div>
         <div className="mt-[4.5rem] ml-2 mr-2">{children}</div>
       </div>
