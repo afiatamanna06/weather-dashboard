@@ -1,19 +1,20 @@
 import { useContext, useEffect, useState } from "react";
 import { IoIosPartlySunny, IoIosSunny, IoMdRainy } from "react-icons/io";
 import { WeatherContext } from "../../utils/WeatherContext";
+import { toast } from "react-toastify";
 
 interface WeatherData {
-    name: string;
-    temperature: number;
-    condition: string;
-    humidity: number;
-    wspeed: number;
-  };
+  name: string;
+  temperature: number;
+  condition: string;
+  humidity: number;
+  wspeed: number;
+}
 
 const WeatherTable = () => {
-  const city = useContext(WeatherContext)
-  const [weatherData, setWeatherData] = useState<WeatherData[]>([])
-  
+  const city = useContext(WeatherContext);
+  const [weatherData, setWeatherData] = useState<WeatherData[]>([]);
+
   const apiKey = "d588948b013155b2b1d7e46ec17e4840";
 
   const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
@@ -28,18 +29,19 @@ const WeatherTable = () => {
             condition: data.weather[0].description,
             humidity: data.main.humidity,
             wspeed: data.wind.speed,
+          };
+          console.log(receivedData);
+          if (!weatherData.some((item) => item.name === receivedData.name)) {
+            setWeatherData((prevData) => [...prevData, receivedData]);
           }
-          console.log(receivedData)
-          if (!(weatherData.some((item) => item.name === receivedData.name))) {
-            weatherData.push(receivedData);
-          }
-          console.log(weatherData)
+          console.log(weatherData);
         } else {
-          console.error(`Error: ${data.message}`);
+          toast(`Error: ${data.message}`);
         }
       })
       .catch((error) => console.error("Error fetching weather data:", error));
-  }, [apiKey, apiUrl, weatherData]);
+  }, [apiUrl]);
+
   return (
     <div className="text-gray-800 max-h-[100%] overflow-y-auto w-full rounded-lg px-5  bg-slate-50">
       <div className="w-full overflow-x-auto">
@@ -51,7 +53,7 @@ const WeatherTable = () => {
                   scope="col"
                   className="py-3.5 pl-4 pr-3 text-left text-lg font-medium text-gray-500 sm:pl-0"
                 >
-                  City Name 
+                  City Name
                 </th>
                 <th
                   scope="col"
@@ -92,10 +94,13 @@ const WeatherTable = () => {
                     {item.condition === "clear sky" && (
                       <IoIosSunny size={30} color="yellow" />
                     )}
-                    {(item.condition === "overcast clouds" || item.condition === "haze" || item.condition === "broken clouds") && (
+                    {(item.condition === "overcast clouds" ||
+                      item.condition === "haze" ||
+                      item.condition === "broken clouds") && (
                       <IoIosPartlySunny size={30} color="gray" />
                     )}
-                    {(item.condition === "heavy intensity rain" || item.condition === "light rain") && (
+                    {(item.condition === "heavy intensity rain" ||
+                      item.condition === "light rain") && (
                       <IoMdRainy size={30} color="skyblue" />
                     )}
                   </td>
