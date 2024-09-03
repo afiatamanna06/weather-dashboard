@@ -1,12 +1,11 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import AppRoutes from './routes/AppRoutes';
 
 function App() {
   return (
-    <div className="text-3xl font-bold text-blue-500">
-      Meh
-    </div>
+    <AppRoutes />
   );
 }
 
